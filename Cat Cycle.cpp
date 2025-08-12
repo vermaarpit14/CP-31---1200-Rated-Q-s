@@ -37,38 +37,11 @@ int32_t main() {
     //code here
     int t; cin>>t;
     while(t--){
-        int n; cin>>n;
-        string a, b;
-        cin>>a>>b;
-        bool isFlipped = false;
-        bool isPoss = true;
-        vector<bool> canFlip(n, false);
-        int cnt0=0, cnt1=0;
-        rep(i, 0, n){
-            if(a[i]=='0') cnt0++;
-            if(a[i]=='1') cnt1++;
-            if(cnt0==cnt1) canFlip[i] = true;
-        }
-        per(i, 0, n){
-            if(isFlipped){
-                if(a[i]==b[i]){
-                    if(canFlip[i]) isFlipped ^= true;
-                    else{
-                        isPoss = false;
-                        break;
-                    }
-                }
-            } else {
-                if(a[i]!=b[i]){
-                    if(canFlip[i]) isFlipped ^= true;
-                    else {
-                        isPoss = false;
-                        break;
-                    }
-                }
-            }
-        }
-        cout<<(isPoss ? "YES" : "NO")<<"\n";
+        int n, k;
+        cin>>n>>k;
+        k--;
+        int floor = n/2;
+        cout << (k + (n % 2) * k / floor) % n + 1<< "\n";
     }
     return 0;
 }

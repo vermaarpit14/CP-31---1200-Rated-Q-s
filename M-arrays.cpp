@@ -37,38 +37,26 @@ int32_t main() {
     //code here
     int t; cin>>t;
     while(t--){
-        int n; cin>>n;
-        string a, b;
-        cin>>a>>b;
-        bool isFlipped = false;
-        bool isPoss = true;
-        vector<bool> canFlip(n, false);
-        int cnt0=0, cnt1=0;
-        rep(i, 0, n){
-            if(a[i]=='0') cnt0++;
-            if(a[i]=='1') cnt1++;
-            if(cnt0==cnt1) canFlip[i] = true;
-        }
-        per(i, 0, n){
-            if(isFlipped){
-                if(a[i]==b[i]){
-                    if(canFlip[i]) isFlipped ^= true;
-                    else{
-                        isPoss = false;
-                        break;
-                    }
-                }
-            } else {
-                if(a[i]!=b[i]){
-                    if(canFlip[i]) isFlipped ^= true;
-                    else {
-                        isPoss = false;
-                        break;
-                    }
+        int n, x; cin>>n>>x;
+        vector<int> a(n);
+        rep(i, 0, n) cin>>a[i];
+        rep(i, 0, n) a[i] %= x;
+        vector<int> b(x, 0);
+        rep(i, 0, n) b[a[i]]++;
+        int ans = (b[0] > 0); 
+        for (int i = 1; i <= x / 2; i++){
+            if (i == x - i){
+                if (b[i] > 0)
+                    ans++;
+            }else{
+                int c1 = b[i], c2 = b[x - i];
+                if (c1 > 0 || c2 > 0){
+                    ans++;
+                    ans += max(0LL, abs(c1 - c2) - 1);
                 }
             }
         }
-        cout<<(isPoss ? "YES" : "NO")<<"\n";
+        cout<<ans<<"\n";
     }
     return 0;
 }
